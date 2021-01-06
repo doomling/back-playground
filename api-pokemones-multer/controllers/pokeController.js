@@ -6,6 +6,8 @@ class PokeController {
   }
 
   async createPokemon(req, res) {
+    
+    // Acá quizás te conviene hacer el checkeo de si existe req.file en un if y meter el try / catch adentro para ahorrarte la lógica de abajo y el error del undefined
     try {
       const { name } = req.body;
       //si no enviaba image en el form, me tiraba el error que no había file y caía
@@ -66,6 +68,8 @@ class PokeController {
         type: pokeApi.data.types[0].type.name,
       };
 
+      // está bueno agregar el checkeo de si existe y sino crearlo, pero también es válido 
+      // simplemente mostrar un error de 'pokemon inexistente' y crearlo desde otro endpoint para mantener la separación de responsabilidades
       const modify = await this.pokeService.modifyPokemon(pokemon);
       //si no existe el pokemon en la db, lo creo con el createPokemon
       if (!modify) {
